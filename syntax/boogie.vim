@@ -25,9 +25,6 @@ syn keyword bplDecl     axiom function procedure type requires ensures modifies 
 syn match   bplLabel    display +^\s*\I\i*\s*:\([^:=]\|$\)\@=+
 syn keyword bplBoolLit  false true
 
-syn match   bplIdentifier   display "[A-Za-z0-9_.$#^]\+"
-
-
 " Comments
 "
 " PROVIDES: @bplCommentHook
@@ -60,12 +57,15 @@ syn region  bplString    start=+"+  end=+"+ end=+$+ contains=bplSpecialChar,bplS
 syn match   bplCharacter    "'[^']*'" contains=bplSpecialChar,bplSpecialCharError
 syn match   bplCharacter    "'\\''" contains=bplSpecialChar
 syn match   bplCharacter    "'[^\\]'"
-syn match   bplNat       "\<\d\+\>"
+
+" TOKENS
+syn match   bplIdent     display "\\\?\(\a\|['~#$^_.?`]\)\(\a\|['~#$^_.?`]\|\d\)*"
+syn match   bplDigits    "\<\d\+\>"
 syn match   bplBVLit     "\<\d\+bv\d\+\>"
 syn match   bplDecimal   "\<\d\+[eE][-+]\?\d\+\>"
 syn match   bplDecFloat  "\<\d\+\.\d\+\([eE][-+]\?\d\+\)\?\>"
 syn match   bplFloat     "\<[-+]\?\d\+[eE][-+]\?\d\+[fF]\d\+[eE]\d\+\>"
-syn match   bplFloat     "\<0\([nN]a[nN]\|[-+]oo\|[-+]zero\)\d\+[eE]\d\+\>"
+syn match   bplFloat     "\<0\(NaN\|nan\|[-+]oo\|[-+]zero\)\d\+[eE]\d\+\>"
 
 " The default highlighting.
 hi def link bplType      Type
@@ -86,7 +86,7 @@ hi def link bplVerbatimSpec     SpecialChar
 hi def link bplPreCondit        PreCondit
 hi def link bplCharacter        Character
 hi def link bplSpecialChar      SpecialChar
-hi def link bplNat              Number
+hi def link bplDigits           Number
 hi def link bplBVLit            Number
 hi def link bplDecimal          Number
 hi def link bplDecFloat         Float
